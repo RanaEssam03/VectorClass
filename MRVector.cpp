@@ -26,3 +26,32 @@ MRVector<T> &MRVector<T>::operator=(const MRVector<T> &&v2) { /// Move assignmen
     return *this;
 }
 
+template <class T>
+T& MRVector<T>:: operator[](int index){ /// Access item by reference
+    if(index <sz){
+        return *arr[index];
+    }
+    else{
+        cout << "\aIndex out of range" << endl;
+        return nullptr;
+    }
+}
+
+template <class T>
+T MRVector<T>::pop_back(){
+    if(sz > 0){
+        T temp = arr[sz-1];
+        sz--;
+        delete arr[sz-1];
+        return temp;
+    }
+    else{
+        cout << "\aVector is Empty" << endl;
+        return 0;
+    }
+}
+
+
+
+
+

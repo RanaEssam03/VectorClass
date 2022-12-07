@@ -25,7 +25,8 @@ public:
     MRVector &operator=(const MRVector&& v2); // Move assignment
 
     // Access operations
-    T& operator[](int); // Access item by reference
+    T& operator[](int index); // Access item by reference
+    T pop_back();     // Remove and return last element in vec
 
 };
 
