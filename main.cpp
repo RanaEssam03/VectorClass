@@ -7,6 +7,8 @@
 // Purpose: Vector class
 
 #include "MRVector.h"
+#include "MRVector.cpp"
 
 int main(){
+    MRVector<int>v;
 }

@@ -14,6 +14,8 @@ private:
     long long sz = 0;
     long long cap = 10;
 public:
+    // default constructor
+    MRVector();
     // Constructors and Big 4
     MRVector(int cap);			// Initialize by specific capacity
     // No content is added, size = 0
@@ -27,6 +29,10 @@ public:
     // Access operations
     T& operator[](int index); // Access item by reference
     T pop_back();     // Remove and return last element in vec
+    bool operator==(const MRVector<T>& v2); // Return true if ==
+    int capacity() ; // Return size of current allocated array
+    void resize(int newSz) ;        // Relocate to bigger space
+
 
 };
 
