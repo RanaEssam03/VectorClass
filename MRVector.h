@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 template <class T>
@@ -11,10 +12,10 @@ class MRVector{
 private:
     T *arr;
     long long sz = 0;
-    long long cap = 0;
+    long long cap = 10;
 public:
     // Constructors and Big 4
-    MRVector(int);			// Initialize by specific capacity
+    MRVector(int cap);			// Initialize by specific capacity
     // No content is added, size = 0
     // Assign a default size value
     MRVector (T*, int  n );		// Initialize by n items from array
