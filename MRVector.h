@@ -22,7 +22,7 @@ public:
     MRVector(int cap);			// Initialize by specific capacity
     // No content is added, size = 0
     // Assign a default size value
-    MRVector (T*, int  n );		// Initialize by n items from array
+    MRVector (T* , int  n );		// Initialize by n items from array
     MRVector (const MRVector& v2);	// Initialize with a copy
     ~MRVector()		;		// Delete allocated memory
     MRVector &operator=(const MRVector& v2) ;  // Copy assignment
@@ -58,8 +58,9 @@ public:
     bool empty();        // Return true if size is 0
 
     // Friends
-    friend ostream& operator << (ostream& out, MRVector<T> v);
+    template<class T2>friend ostream& operator << (ostream& out, const MRVector<T2>  &v);
 
 };
+
 
 #endif //VECTORCLASS_MRVECTOR_H

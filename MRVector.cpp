@@ -86,6 +86,7 @@ int MRVector<T>::push_back(T item) {
         temp = nullptr;
         arr[sz++] = item;
     }
+    return 0;
 }
 template <class T>
 T MRVector<T>::pop_back(){
@@ -201,36 +202,14 @@ bool MRVector<T>::empty() {
         return false;
     }
 }
-template<class T>
-ostream &operator<<(ostream &out, MRVector<T> v) {
+
+
+template<class T> ostream & operator<<(ostream &out,  const MRVector<T> &v){
     for(int i = 0 ; i < v.sz ; i++){
         out << v.arr[i] << " ";
     }
     return out;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
