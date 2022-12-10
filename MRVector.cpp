@@ -3,6 +3,7 @@
 template <class T>
 MRVector<T>::MRVector() { /// default constructor
     arr = new T[cap];
+    fillWithZeroes();
 }
 template<class T>
 MRVector<T>::MRVector(int cap) {
