@@ -8,20 +8,27 @@ template<class T>
 MRVector<T>::MRVector(int cap) {
     this->cap = cap;
     arr = new T[cap];
+    fillWithZeroes();
 }
 template <class T> // each function has its own template
-MRVector<T>:: MRVector(T* arr2, int cap){   //// Initialize by n items from array
-    this->cap = cap;
+MRVector<T>:: MRVector(T* arr2, int n){   //// Initialize by n items from array
+    if( n > cap ){
+        cap*=2;
+    }
     arr = new T[cap];
-    for(long long i = 0 ; i < cap ; i++){
+    sz = n;
+    for(long long i = 0 ; i < n ; i++){
         arr[i] = arr2[i];
     }
+    fillWithZeroes();
+
 }
 
 template <class T> // each function has its own template
 MRVector<T>:: ~MRVector(){  /// Delete allocated memory
     delete [] arr;
 }
+
 template<class T>
 MRVector<T>::MRVector(const MRVector &v2) { /// Initialize with a copy
     delete[] arr;
@@ -33,6 +40,7 @@ MRVector<T>::MRVector(const MRVector &v2) { /// Initialize with a copy
     }
     cout << "Copy constructor called" << endl;
 }
+
 template<class T>
 MRVector<T> &MRVector<T>::operator=(const MRVector &v2) {
     if(this != &v2) {
@@ -48,6 +56,7 @@ MRVector<T> &MRVector<T>::operator=(const MRVector &v2) {
     return *this;
 
 }
+
 template <class T> // each function has its own template
 MRVector<T> &MRVector<T>::operator=(const MRVector<T> &&v2) { /// Move assignment operator
     if(this != &v2){
@@ -62,16 +71,20 @@ MRVector<T> &MRVector<T>::operator=(const MRVector<T> &&v2) { /// Move assignmen
 
 template <class T>
 T& MRVector<T>:: operator[](int index){ /// Access item by reference
-    if(index <sz){
-        return *arr[index];
+    if(index < cap){
+        if(arr[index] == 0)
+            sz++;
+        return arr[index];
     }
     else{
         cout << "\aIndex out of range" << endl;
-        return nullptr;
+        exit(-1);
     }
+
 }
+
 template<class T>
-int MRVector<T>::push_back(T item) {
+int MRVector<T>::push_back(T item) {   // Error
     if(sz < cap){
         arr[sz++] = item;
     }
@@ -88,12 +101,16 @@ int MRVector<T>::push_back(T item) {
     }
     return 0;
 }
+
 template <class T>
 T MRVector<T>::pop_back(){
     if(sz > 0){
+        T* p = new int[cap];
+        copy(arr, arr+sz-1, p);
         T temp = arr[sz-1];
+        delete [] arr;
+       arr= p;
         sz--;
-        delete arr[sz-1];
         return temp;
     }
     else{
@@ -101,6 +118,7 @@ T MRVector<T>::pop_back(){
         return 0;
     }
 }
+
 template<class T>
 void MRVector<T>::erase(iterator it) {
 
@@ -115,6 +133,32 @@ void MRVector<T>::erase(iterator it) {
         sz--;
     }
 }
+
+template<class T>
+void MRVector<T>::erase(iterator first, iterator last) {
+    if(first < begin() || first > end() || last < begin() || last > end()){
+        cout << "\aInvalid iterator" << endl;
+        exit(-1);
+    }
+    else{
+        T* temp = new T[cap];
+        iterator itr2 = temp;
+        sz -= last-first;
+        for(iterator itr = begin() ; itr < first ; itr++){
+            *itr2 = *itr;
+            itr2++;
+        }
+        if(last < begin())
+            last++;
+        for(iterator itr = last ; itr <= end() ; itr++){
+            *itr2 = *itr;
+        }
+        delete []arr;
+        arr = temp;
+
+        }
+}
+
 template<class T>
 void MRVector<T>::clear() {
     delete [] arr;
@@ -123,9 +167,41 @@ void MRVector<T>::clear() {
 
 }
 
+template <class T>
+void MRVector<T>::insert(iterator itr, T elmnt) {
+    if( itr > end() || itr < begin()){
+        exit(-1);
+    }
+    else{
+        if(cap == sz){
+            T* arr2 = new T[cap*2];
+            iterator temp = arr2;
+            int j = 0;
+            sz ++;
+            for(iterator i = begin() ; i < itr ;i++){
+               *temp = *i;
+               temp++;
+            }
+           *temp = elmnt;
+            temp++;
+            for(iterator i = itr +1 ; i < end()+1 ; i++){
+                *temp = *(i-1);
+                temp++;
+            }
+            delete [] arr;
+            arr = arr2;
+        }
+    }
+}
+
 template<class T>
 T* MRVector<T>::begin() {
     return arr;
+}
+
+template <class T>
+T* MRVector<T>::end() {
+    return arr + sz;
 }
 
 template <class T>
@@ -209,6 +285,13 @@ template<class T> ostream & operator<<(ostream &out,  const MRVector<T> &v){
         out << v.arr[i] << " ";
     }
     return out;
+}
+
+ template <class T>
+ void MRVector<T>::fillWithZeroes() {
+    for(int i = sz ; i < cap; i++){
+        arr[i] = 0;
+    }
 }
 
 

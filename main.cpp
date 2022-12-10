@@ -11,10 +11,14 @@
 
 
 int main() {
-    MRVector<int> v(3);
-    v.push_back(1);
-    v.push_back(2);
-    v.push_back(3);
+    int * arr =new int[5];
+    for(int i = 0 ; i < 5 ; i++){
+        arr[i] = i+1;
+    }
+    MRVector<int> v( arr, 5);
+    v.insert(v.end(), 5);
+    v.push_back(5);
+    v.erase(v.begin(), v.end());
     cout << v << endl;
 
 }

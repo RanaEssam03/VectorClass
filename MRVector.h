@@ -37,12 +37,15 @@ public:
 
     T pop_back();     // Remove and return last element in vec
     void erase(iterator);        // Remove item at iterator
+    void erase( iterator first, iterator last);
+
     // Throw exception if invalid iter
     void clear();     // Delete all vector content
 
     // Iterators 		// Supports *, + and ++ operations at least
     // Can use: typedef T* iterator
     // Or u can use std::iterator so you can
+    void insert(iterator itr, T elmnt);
     // apply STL algorithms on XYVector
     iterator begin();	// Return an iterator (T*)
     iterator end();	    // Return an iterator (T*)
@@ -59,6 +62,7 @@ public:
 
     // Friends
     template<class T2>friend ostream& operator << (ostream& out, const MRVector<T2>  &v);
+    void fillWithZeroes();
 
 };
 
