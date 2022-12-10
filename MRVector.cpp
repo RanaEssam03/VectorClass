@@ -190,7 +190,17 @@ void MRVector<T>::insert(iterator itr, T elmnt) {
             }
             delete [] arr;
             arr = arr2;
+
         }
+        else
+        {
+            sz++;
+            for(iterator i = end()+1 ; i > itr ; i--){
+                *i = *(i-1);
+            }
+           *itr = elmnt;
+        }
+
     }
 }
 
