@@ -18,6 +18,7 @@ int main() {
     MRVector<int> v( arr, 5);
     v.insert(v.end(), 5);
     v.push_back(5);
+    cout << v << endl;
     v.erase(v.begin(), v.end());
     cout << v << endl;
 
